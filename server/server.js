@@ -1,6 +1,10 @@
+//Load dotenv so that we can use process.env.MONGO_URI to get the mongodb connection
+require('dotenv').config()
+
 const express = require('express')
 const port = 8080
 const server = express()
+
 
 // We do this before we handle any post requests so that express is able to handle JSON data and turn it into JavaScript
 server.use(express.json())
