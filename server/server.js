@@ -5,6 +5,11 @@ const express = require('express')
 const mong = require('mongoose')
 const port = 8080
 const server = express()
+//Food entry model import
+const FoodEntry = require('./models/FoodEntry')
+
+
+
 
 // Connects to the mongodb database I created
 mong.connect(process.env.MONGO_URI).then(() => console.log("MongoDB Connected"))
@@ -17,8 +22,7 @@ server.use(express.json())
 // Just returns data. Nothing comes in.
 server.get('/', (req,res) =>
 {
-    const jsonData = {name: "Banana", calories: "105"}
-    res.json(jsonData)
+    res.json(getAllData())
 })
 
 // Client sending data to server i.e new food entry
@@ -30,3 +34,22 @@ server.post('/api/entries', (req,res) =>
 
 // Start the server
 server.listen(port, ()=> console.log('Server Running on Port:', port) )
+
+
+// Async function that gets all the data from Mogo
+// Async/await is neccessary to use .find() method
+async function getAllData(){
+    try{
+        let result = await FoodEntry.find()
+        return result
+
+    }
+    catch (error){
+        console.log(error)
+        return
+    }
+
+    
+
+
+}
