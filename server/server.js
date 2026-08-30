@@ -2,8 +2,13 @@
 require('dotenv').config()
 
 const express = require('express')
+const mong = require('mongoose')
 const port = 8080
 const server = express()
+
+// Connects to the mongodb database I created
+mong.connect(process.env.MONGO_URI).then(() => console.log("MongoDB Connected"))
+                                    .catch((err) => console.log("Connection Error",err))
 
 
 // We do this before we handle any post requests so that express is able to handle JSON data and turn it into JavaScript
