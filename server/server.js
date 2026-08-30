@@ -20,27 +20,11 @@ mong.connect(process.env.MONGO_URI).then(() => console.log("MongoDB Connected"))
 server.use(express.json())
 
 // Just returns data. Nothing comes in.
-server.get('/', (req,res) =>
+server.get('/api/entries', async (req,res) =>
 {
-    res.json(getAllData())
-})
-
-// Client sending data to server i.e new food entry
-server.post('/api/entries', (req,res) =>
-{
-    console.log(req.body)
-    res.json({message: "Recieved Entry"})
-})
-
-// Start the server
-server.listen(port, ()=> console.log('Server Running on Port:', port) )
-
-
-// Async function that gets all the data from Mogo
-// Async/await is neccessary to use .find() method
-async function getAllData(){
     try{
         let result = await FoodEntry.find()
+        res.json(result)
         return result
 
     }
@@ -48,8 +32,24 @@ async function getAllData(){
         console.log(error)
         return
     }
-
     
+})
 
+// Client sending data to server i.e new food entry
+server.post('/api/entries', async (req,res) =>
+{
+    try
+    {
+        let resultingEntry = await FoodEntry.create(req.body)
+        res.json(resultingEntry)
+        console.log("New Entry: ",resultingEntry)
 
-}
+    }
+    catch (error)
+    {
+        console.log(error)
+    }
+})
+
+// Start the server
+server.listen(port, ()=> console.log('Server Running on Port:', port) )

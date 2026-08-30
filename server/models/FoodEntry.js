@@ -5,7 +5,7 @@ const {Schema} = mong
 const foodEntrySchema = new Schema({
 name: String,
 calories: Number,
-date: Date
+date: String
 
 
 })
