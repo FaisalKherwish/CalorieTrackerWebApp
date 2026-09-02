@@ -33,6 +33,11 @@ function App() {
   // Update function for when the submit button is clicked
 function handleSubmit(event){
   event.preventDefault()
+if(nameInput == "" || caloriesInput == ""){
+  console.log("Empty Field(s) please make sure to input a value in each field.")
+return
+}
+
 const newEntry = {name: nameInput, calories: caloriesInput}
 
 
