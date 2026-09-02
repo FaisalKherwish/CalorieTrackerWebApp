@@ -1,24 +1,32 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  let arrObj = [{name: "Banana",calories:23},{name: "Broccoli",calories: 43}]
+  let arrObj = [{name: "Banana",calories:23},{name: "Broccoli",calories: 43}, {name: "Strawberry", calories: 87}]
+  const [entries,setEntries] = useState(arrObj)
+  const [nameInput,setNameInput] = useState("")
+  const [caloriesInput,setCaloriesInput] = useState("")
 
   return (
     <>
       <h1>
         Calorie Tracker 
+        {nameInput}
+        {caloriesInput}
       </h1>
 
       <ul>
-        {arrObj.map(entry => <li>{entry.calories}</li>)}
+        {entries.map((entry, index) => <li key={index}>{entry.name}</li>)}
       </ul>
+
+      <form>
+      <input type="text" value={nameInput} onChange={event => setNameInput(event.target.value)}/>
+      
+      <input type="number" value={caloriesInput} onChange={event => setCaloriesInput(event.target.value)}/>
+
+      </form>
     </>
   )
 }
