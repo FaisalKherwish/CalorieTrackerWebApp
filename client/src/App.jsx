@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 
@@ -13,22 +13,36 @@ function App() {
     <>
       <h1>
         Calorie Tracker 
-        {nameInput}
-        {caloriesInput}
       </h1>
 
       <ul>
         {entries.map((entry, index) => <li key={index}>{entry.name}</li>)}
       </ul>
 
-      <form>
+      <form onSubmit={event => handleSubmit(event)}>
       <input type="text" value={nameInput} onChange={event => setNameInput(event.target.value)}/>
       
       <input type="number" value={caloriesInput} onChange={event => setCaloriesInput(event.target.value)}/>
 
+      <button type="submit"/>
+
       </form>
     </>
   )
+
+  // Update function for when the submit button is clicked
+function handleSubmit(event){
+  event.preventDefault()
+const newEntry = {name: nameInput, calories: caloriesInput}
+
+
+// ...entries basically makes a new array in memory but with the newEntry added to it
+setEntries([...entries,newEntry])
+
 }
+
+}
+
+
 
 export default App
