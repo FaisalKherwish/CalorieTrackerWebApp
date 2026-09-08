@@ -16,7 +16,7 @@ function App() {
       </h1>
 
       <ul>
-        {entries.map((entry, index) => <li key={index}>{entry.name}</li>)}
+        {entries.map((entry, index) => <li key={index}>Meal Name: {entry.name} Calories:{entry.calories}</li>)}
       </ul>
 
       <form onSubmit={event => handleSubmit(event)}>
@@ -41,9 +41,13 @@ return
 const newEntry = {name: nameInput, calories: caloriesInput}
 
 
-// ...entries basically makes a new array in memory but with the newEntry added to it
+// ...entries basically makes a new array in memory with the same values but with the newEntry added to it
 setEntries([...entries,newEntry])
 
+}
+
+function useEffect(){
+  let x = fetch('http://localhost:8080/api/entries')
 }
 
 }
