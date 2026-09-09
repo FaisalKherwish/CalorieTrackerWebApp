@@ -43,22 +43,36 @@ function App() {
   )
 
   // Update function for when the submit button is clicked
-function handleSubmit(event){
+async function handleSubmit(event){
   event.preventDefault()
-if(nameInput == "" || caloriesInput == ""){
-  console.log("Empty Field(s) please make sure to input a value in each field.")
+  if(nameInput == "" || caloriesInput == "")
+  {
+    return
+  }
+
+  const newEntry = {name: nameInput, calories: caloriesInput}
+
+  // Fetch the POST request. Must use an object as an argument to show what method I want to use
+  const response = await fetch('http://localhost:8080/api/entries',{method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(newEntry)})
+  const data = await response.json()
+
+  setEntries([...entries,data])
+
+  setNameInput("")
+  setCaloriesInput("")
+
+
 return
 }
 
-const newEntry = {name: nameInput, calories: caloriesInput}
 
 
-// ...entries basically makes a new array in memory with the same values but with the newEntry added to it
-setEntries([...entries,newEntry])
+
+
+
 
 }
 
-}
 
 
 
