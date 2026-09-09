@@ -4,10 +4,22 @@ import './App.css'
 
 function App() {
 
-  let arrObj = [{name: "Banana",calories:23},{name: "Broccoli",calories: 43}, {name: "Strawberry", calories: 87}]
-  const [entries,setEntries] = useState(arrObj)
+  const [entries,setEntries] = useState([])
   const [nameInput,setNameInput] = useState("")
   const [caloriesInput,setCaloriesInput] = useState("")
+  
+  useEffect(() =>
+  {
+    console.log("Effect Ran")
+
+    async function loadEntries() {
+      const  response = await fetch('http://localhost:5173/api/entries')
+      const  data = await fetch.json()
+      setEntries(data)
+    }
+    loadEntries()
+
+  },[])
 
   return (
     <>
@@ -44,10 +56,6 @@ const newEntry = {name: nameInput, calories: caloriesInput}
 // ...entries basically makes a new array in memory with the same values but with the newEntry added to it
 setEntries([...entries,newEntry])
 
-}
-
-function useEffect(){
-  let x = fetch('http://localhost:8080/api/entries')
 }
 
 }

@@ -8,6 +8,10 @@ const server = express()
 //Food entry model import
 const FoodEntry = require('./models/FoodEntry')
 
+// I need this so I can allow access from my client
+const cors = require('cors')
+app.use(cors()) // Calling cors with no arguments allows requests from any origin
+
 
 
 
