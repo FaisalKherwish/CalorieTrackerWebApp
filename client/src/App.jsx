@@ -13,8 +13,8 @@ function App() {
     console.log("Effect Ran")
 
     async function loadEntries() {
-      const  response = await fetch('http://localhost:5173/api/entries')
-      const  data = await fetch.json()
+      const  response = await fetch('http://localhost:8080/api/entries')
+      const  data = await response.json()
       setEntries(data)
     }
     loadEntries()
